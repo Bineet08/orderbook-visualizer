@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Real-Time Order Book Visualizer
 
-## Getting Started
+A high-performance, real-time stock order book visualizer built with Next.js, TypeScript, and Binance WebSocket API.
 
-First, run the development server:
+**[View Live Application](https://orderbook-visualizer-vercel.vercel.app/)**
 
+## 🚀 Features
+
+- **Real-time Order Book**: Live bid/ask updates with depth visualization
+- **Recent Trades**: 50 most recent trades with flash highlighting
+- **Multiple Trading Pairs**: Switch between BTC/USDT, ETH/USDT, BNB/USDT, SOL/USDT
+- **Performance Optimized**: Uses Zustand for state management and React.memo for optimal rendering
+- **Auto-reconnection**: Automatic WebSocket reconnection on disconnect
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **API**: Binance WebSocket API
+
+## 📦 Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Bineet08/orderbook-visualizer
+cd orderbook-visualizer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+orderbook-visualizer/
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Main page
+│   │   └── globals.css      # Global styles
+│   ├── components/          # React components
+│   │   ├── OrderBook/       # Order book components
+│   │   ├── RecentTrades/    # Trade list components
+│   │   └── Header/          # Header component
+│   ├── hooks/               # Custom hooks
+│   │   └── useBinanceSocket.ts
+│   ├── store/               # Zustand stores
+│   │   └── orderBookStore.ts
+│   └── types/               # TypeScript types
+│       └── index.ts
+├── package.json
+├── tsconfig.json
+├── tailwind.config.ts
+└── README.md
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Design Decisions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### State Management: Zustand
+- Minimal boilerplate compared to Redux
+- Excellent performance for high-frequency updates
+- Small bundle size (~1KB)
 
-## Deploy on Vercel
+### Data Structure: Map for Order Book
+- O(1) time complexity for price level updates
+- Efficient handling of thousands of price levels
+- Easy to add/remove/update individual levels
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Performance Optimizations
+1. **React.memo**: All list components memoized to prevent unnecessary re-renders
+2. **useMemo**: Computed values (sorted lists, totals, spread) cached
+3. **Sliced displays**: Only show top 15 levels to reduce DOM operations
+4. **Batched updates**: WebSocket updates processed efficiently
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### WebSocket Management
+- Separate connections for depth and trades
+- Auto-reconnection with 3-second delay
+- Proper cleanup on unmount
+- Connection status indicator
+
+## 🚀 Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Visit [vercel.com](https://vercel.com)
+3. Import your repository
+4. Vercel will auto-detect Next.js and deploy
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## 📚 API Documentation
+
+This project uses the Binance WebSocket API:
+
+- **Depth Stream**: `wss://stream.binance.com:9443/ws/{symbol}@depth@100ms`
+- **Aggregate Trades**: `wss://stream.binance.com:9443/ws/{symbol}@aggTrade`
+
+Documentation: [https://binance-docs.github.io/apidocs/spot/en/](https://binance-docs.github.io/apidocs/spot/en/)
+
+## 🎓 Performance Features
+
+- **Efficient Updates**: Map-based data structure for O(1) price level updates
+- **Memoization**: React.memo on all list components
+- **Computed Values**: useMemo for sorted data and calculations
+- **Minimal Re-renders**: Zustand ensures only affected components update
+- **Optimized Display**: Limited to top 15 levels to reduce DOM operations
+
+
+## 👨‍💻 Author
+
+Bineet Gupta
+```
+
+---
+
+## 🎯 Quick Setup Commands
+
+```bash
+# Create project (if starting from scratch)
+npx create-next-app@latest orderbook-visualizer --typescript --tailwind --app
+
+# Navigate to project
+cd orderbook-visualizer
+
+# Install Zustand
+npm install zustand
+
+# Run development server
+npm run dev
+```
+
+## ✅ Checklist
+
+- [ ] Copy all 18 files to their respective locations
+- [ ] Run `npm install`
+- [ ] Run `npm run dev`
+- [ ] Test with multiple trading pairs
+- [ ] Deploy to Vercel
+- [ ] Submit assignment
+
+Your application will be running at `http://localhost:3000`
