@@ -15,7 +15,7 @@ export const useBinanceSocket = (symbol: string) => {
 
   const connect = useCallback(() => {
     try {
-      // Depth WebSocket
+      //Depth WebSocket
       const depthWs = new WebSocket(
         `wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@depth@100ms`
       );
@@ -52,7 +52,7 @@ export const useBinanceSocket = (symbol: string) => {
         }
       };
 
-      // Trades WebSocket
+      //Trades WebSocket
       const tradesWs = new WebSocket(
         `wss://stream.binance.com:9443/ws/${symbol.toLowerCase()}@aggTrade`
       );
@@ -98,13 +98,13 @@ export const useBinanceSocket = (symbol: string) => {
     connect();
 
     return () => {
-      // mark unmounted to guard state updates and reconnections
       isUnmountedRef.current = true;
-      // prevent reconnect on intentional teardown
+
       if (depthWsRef.current) {
         depthWsRef.current.onclose = null as unknown as () => void;
         depthWsRef.current.close();
       }
+
       if (tradesWsRef.current) {
         tradesWsRef.current.onclose = null as unknown as () => void;
         tradesWsRef.current.close();
