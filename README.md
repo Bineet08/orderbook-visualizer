@@ -126,33 +126,3 @@ Documentation: [https://binance-docs.github.io/apidocs/spot/en/](https://binance
 ## 👨‍💻 Author
 
 Bineet Gupta
-```
-
----
-
-## 🎯 Quick Setup Commands
-
-```bash
-# Create project (if starting from scratch)
-npx create-next-app@latest orderbook-visualizer --typescript --tailwind --app
-
-# Navigate to project
-cd orderbook-visualizer
-
-# Install Zustand
-npm install zustand
-
-# Run development server
-npm run dev
-```
-
-## ✅ Checklist
-
-- [ ] Copy all 18 files to their respective locations
-- [ ] Run `npm install`
-- [ ] Run `npm run dev`
-- [ ] Test with multiple trading pairs
-- [ ] Deploy to Vercel
-- [ ] Submit assignment
-
-Your application will be running at `http://localhost:3000`
